@@ -23,7 +23,9 @@ export const metadata: Metadata = {
 };
 type Props = {
   children: React.ReactNode;
-  params: { locale?: string };
+    params: Promise<{
+    locale: string;
+  }>;
 };
 export default async function RootLayout({ children, params }: Props) {
   const  locale  = "en" ;
@@ -31,7 +33,7 @@ export default async function RootLayout({ children, params }: Props) {
   console.log(locale);
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+      <html lang={locale} dir={locale}>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-cream-bg font-sans text-gray-800 min-h-screen flex flex-col relative overflow-x-hidden`}
         >

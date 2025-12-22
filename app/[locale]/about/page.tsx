@@ -141,7 +141,7 @@ const AboutPageMain = () => {
                     </label>
                     <label className="block">
                         <span className="text-gray-700">Message</span>
-                        <textarea className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 p-3" rows="3"></textarea>
+                        <textarea className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 p-3" rows={3}></textarea>
                     </label>
                     <button className="bg-[#5c7cfa] text-white py-2 px-6 rounded-lg font-medium hover:bg-blue-600 transition-colors">
                         Send Message
