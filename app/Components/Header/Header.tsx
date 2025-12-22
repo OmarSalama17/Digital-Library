@@ -5,8 +5,8 @@ const Header = () => {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Books", href: "/books" },
-    { name: "My Library", href: "/library" },
-    { name: "About", href: "about" },
+    // { name: "My Library", href: "/library" },
+    { name: "About", href: "/about" },
   ];
 
   return (

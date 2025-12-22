@@ -23,17 +23,27 @@ export const metadata: Metadata = {
 };
 type Props = {
   children: React.ReactNode;
-    params: Promise<{
+  params: Promise<{
     locale: string;
   }>;
 };
 export default async function RootLayout({ children, params }: Props) {
-  const  locale  = "en" ;
+  const locale = "en";
   const messages = await getMessages({ locale });
   console.log(locale);
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <html lang={locale} dir={locale}>
+        <head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+          />
+        </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-cream-bg font-sans text-gray-800 min-h-screen flex flex-col relative overflow-x-hidden`}
         >

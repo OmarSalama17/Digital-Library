@@ -1,6 +1,20 @@
+import { Book } from '../../../../types/Book';
 import React from 'react'
+import notFound from '../../../not-found';
+type Props = {
+  params: { slug: string }
+}
 
-const page = () => {
+const page = async ({params}:Props) => {
+  const {slug} = await params;
+  const res = await fetch(`https://69494a851282f890d2d5c793.mockapi.io/api/books?slug=${slug}`, { cache: "no-cache" } );
+  const arrData = await res.json();
+  const data : Book = arrData[0];
+  if (arrData === "Not found") {
+    return notFound();
+  }
+  console.log("data",arrData);
+  
   return (
     <main className="relative z-10 flex-grow flex items-center justify-center px-4 py-8 md:py-12 mt-[80px]">
       <div className="max-w-6xl w-full mx-auto">
@@ -11,7 +25,7 @@ const page = () => {
               <img 
                 alt="The Silent Sea Chronicles Book Cover" 
                 className="relative object-cover transform transition duration-500 hover:scale-[1.01]" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB28jDN3mCdYcxtMgRbY68M47mV4Qiy8axYTHEk3OYcnWliLxbFtZAJXhDb4iz7BF8-lyO5NHWRSWe6Qyjkn2UXg3w7qAnWis3kQR9BoEE0QGMTC1h_WGmA_fSXQ0XNKb_M0EC_hW3XH_thtifQ5A9oJ_sBZDivl5C4IP8X3-8rsh1JqVI6k9r_UnfjDPbOMJnUs-3OjfWY9hJi8xOKBngmeFjqpPlz9m41_GRFpIpwxj77L6G3MpaS6zjjLtg7qEC8UKdRlm2xLjaN" // غير اللينك ده بصورة الكتاب الفعلية
+                src={data.img}
                 style={{ 
                   width: '380px', 
                   height: '550px', 
@@ -30,13 +44,13 @@ const page = () => {
                 The Silent Sea<br />Chronicles
               </h1>
               <div className="text-gray-600 space-y-1">
-                <p className="text-lg"><span className="font-normal text-gray-500">Author:</span> <span className="text-gray-900">Elara Vance</span></p>
-                <p className="text-sm"><span className="font-semibold text-gray-500">Category:</span> Science Fiction, Adventure</p>
+                <p className="text-lg"><span className="font-normal text-gray-500">Author:</span> <span className="text-gray-900">{data.author}</span></p>
+                <p className="text-sm"><span className="font-semibold text-gray-500">Category:</span> {data.category}</p>
               </div>
             </div>
             
             <div className="space-y-2">
-              <p className="text-xl"><span className="font-bold text-gray-900">Status:</span> <span className="font-bold text-[#4CAF50]">Available</span></p>
+              <p className="text-xl"><span className="font-bold text-gray-900">Status:</span> <span className="font-bold text-[#4CAF50]">{data.status ? 'Available' : 'Unavailable'}</span></p>
               <p className="text-gray-500 text-sm">Price: $0.00 (Display Only)</p>
             </div>
             
@@ -52,13 +66,13 @@ const page = () => {
             <div className="prose prose-sm md:prose-base text-gray-700 max-w-lg">
               <h3 className="font-bold text-gray-900 text-lg mb-2">Full Description</h3>
               <p className="leading-relaxed">
-                A gripping tale of exploration and mystery, The Silent Sea Chronicles follows a team of deep-sea researchers who uncover an ancient, submerged civilization. As they delve deeper, they realize they are not alone in the dark depths, and the secrets they find could change the world forever. A must-read for sci-fi enthusiasts.
+                {data.description}
               </p>
             </div>
             
             <div className="grid grid-cols-1 gap-1 text-sm text-gray-800 font-medium">
-              <p><span className="font-bold">Pages Count:</span> 450</p>
-              <p><span className="font-bold">Publish Year:</span> 2023</p>
+              <p><span className="font-bold">Pages Count:</span> {data.pagesCount}</p>
+              <p><span className="font-bold">Publish Year:</span> {data.year}</p>
             </div>
           </div>
         </div>
