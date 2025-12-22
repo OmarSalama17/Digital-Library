@@ -23,11 +23,11 @@ export const metadata: Metadata = {
 };
 type Props = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale?: string };
 };
 export default async function RootLayout({ children, params }: Props) {
-  const { locale } = await params;
-  const messages = await getMessages(locale);
+  const  locale  = "en" ;
+  const messages = await getMessages({ locale });
   console.log(locale);
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
@@ -35,10 +35,9 @@ export default async function RootLayout({ children, params }: Props) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-cream-bg font-sans text-gray-800 min-h-screen flex flex-col relative overflow-x-hidden`}
         >
-            <Header/>
-          {/* <BackgroundDecor /> */}
+          <Header />
           {children}
-          <Footer/>
+          <Footer />
         </body>
       </html>
     </NextIntlClientProvider>
