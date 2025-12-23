@@ -1,17 +1,20 @@
 import React from "react";
-
-const Filter = () => {
+type Props = {
+  selectedBook: string;
+  setSelectedBook: React.Dispatch<React.SetStateAction<string>>;
+};
+const Filter = ({ selectedBook, setSelectedBook }:Props) => {
   const categories = [
-    { name: "All Categories", active: false },
-    { name: "Fiction", active: false },
-    { name: "Non-Fiction", active: false },
-    { name: "Science Fiction", active: true },
-    { name: "Mystery", active: false },
-    { name: "Romance", active: false },
-    { name: "History", active: false },
-    { name: "Self-Help", active: false },
-    { name: "Biography", active: false },
-    { name: "Young Adult", active: false },
+    { name: "All Categories" },
+    { name: "Epic Science Fiction" },
+    { name: "Non-Fiction" },
+    { name: "Science Fiction" },
+    { name: "Mystery" },
+    { name: "Romance" },
+    { name: "History" },
+    { name: "Self-Help" },
+    { name: "Biography" },
+    { name: "Young Adult" },
   ];
 
   return (
@@ -22,10 +25,10 @@ const Filter = () => {
       <nav>
         <ul className="space-y-3">
           {categories.map((cat, index) => (
-            <li key={index}>
+            <li key={index} onClick={() => setSelectedBook(cat.name)}>
               <p
                 className={`block px-4 py-2 rounded-lg transition-colors cursor-pointer ${
-                  cat.active
+                  selectedBook === cat.name
                     ? "bg-[#d1e1f5] text-black font-semibold shadow-sm"
                     : "text-gray-800 font-medium hover:text-black hover:bg-white/50"
                 }`}

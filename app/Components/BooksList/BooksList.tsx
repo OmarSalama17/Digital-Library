@@ -3,12 +3,13 @@ import { Book } from "@/types/Book";
 import React from "react";
 type Props = {
   books: Book[];
+  selectedBook: string;
 };
-const BooksList = ({ books }: Props) => {
+const BooksList = ({ books , selectedBook }: Props) => {
   return (
     <main className="flex-1">
       <h1 className="text-2xl font-bold text-black mb-6">
-        Science Fiction Books
+        {selectedBook === "All Categories" ? "All" : selectedBook} Books
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">

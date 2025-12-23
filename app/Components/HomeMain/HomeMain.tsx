@@ -1,3 +1,5 @@
+import { Link } from '@/src/i18n/navigation';
+import { Book } from '@/types/Book';
 import React from 'react';
 
 const categories = [
@@ -40,42 +42,11 @@ const staffPicks = [
   },
 ];
 
-const popularBooks = [
-  {
-    id: 1,
-    title: "The Quiet Sea",
-    author: "Elias Thorne",
-    category: "Fiction / Mystery",
-    desc: "A solitary lighthouse keeper discovers a secret message...",
-    image: "https://placehold.co/300x400/f4a261/FFF?text=Quiet+Sea",
-  },
-  {
-    id: 2,
-    title: "The Literatural Pritock",
-    author: "Sarah Jenkins",
-    category: "Non-Fiction / Tech",
-    desc: "An in-depth look at the evolution of printing...",
-    image: "https://placehold.co/300x400/e76f51/FFF?text=Literature",
-  },
-  {
-    id: 3,
-    title: "The Monmus Book",
-    author: "Dr. A. Sharma",
-    category: "Science / Biology",
-    desc: "Discovering the microscopic world that lives within us...",
-    image: "https://placehold.co/300x400/8d99ae/FFF?text=Monmus",
-  },
-  {
-    id: 4,
-    title: "Lock & Conscious",
-    author: "Dr. A. Sharma",
-    category: "Science / Psychology",
-    desc: "Understanding the mechanisms of the human mind...",
-    image: "https://placehold.co/300x400/ef233c/FFF?text=Lock",
-  },
-];
+type Props = {
+  popularBooks: Book[];
+};  
 
-const HomeMain = () => {
+const HomeMain = ({popularBooks}:Props) => {
   return (
     <main className="w-full bg-[#FDFBF7] text-gray-800 overflow-hidden">
       <section className="py-12 lg:py-20">
@@ -132,13 +103,14 @@ const HomeMain = () => {
           
           <div className="flex flex-wrap gap-4">
             {categories.map((cat, index) => (
-              <button 
+              <Link 
+                href={`/books?category=${cat.name}`} 
                 key={index} 
                 className="cursor-pointer group flex items-center gap-3 px-6 py-3 bg-[#F3F4F6] hover:bg-[#e5e7eb] rounded-full text-gray-700 transition-all text-sm font-medium min-w-[130px] justify-center"
               >
                 <span className="text-lg group-hover:scale-110 transition-transform">{cat.icon}</span>
                 {cat.name}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
@@ -202,7 +174,7 @@ const HomeMain = () => {
               <div key={book.id} className="group flex flex-col h-full bg-[#FDFBF7] rounded-3xl p-4 border border-transparent hover:border-gray-100 hover:bg-white hover:shadow-xl transition-all duration-300">
                 <div className="relative mb-5 overflow-hidden rounded-2xl aspect-[3/4] shadow-md">
                   <img 
-                    src={book.image} 
+                    src={book.img} 
                     alt={book.title} 
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
                   />
@@ -212,12 +184,12 @@ const HomeMain = () => {
                   <p className="text-xs font-semibold text-gray-500">{book.author}</p>
                   <p className="text-[10px] text-[#7C9CC9] uppercase font-bold pt-1">{book.category}</p>
                   <p className="text-xs text-gray-600 line-clamp-3 mt-3 leading-relaxed opacity-80">
-                    {book.desc}
+                    {book.description}
                   </p>
                   <div className="mt-auto pt-5">
-                    <button className="cursor-pointer w-full py-2.5 bg-[#7C9CC9] text-white text-sm font-semibold rounded-xl hover:bg-[#6082b0] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                    <Link href={`books/${book.slug}`} className="block text-center cursor-pointer w-full py-2.5 bg-[#7C9CC9] text-white text-sm font-semibold rounded-xl hover:bg-[#6082b0] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
                       View Details
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -225,9 +197,9 @@ const HomeMain = () => {
           </div>
           
           <div className="flex justify-center mt-16">
-              <button className="cursor-pointer px-8 py-3 bg-white border border-gray-200 text-gray-600 rounded-full text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
+              <Link href="/books" className="cursor-pointer px-8 py-3 bg-white border border-gray-200 text-gray-600 rounded-full text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
                   View All Books
-              </button>
+              </Link>
           </div>
         </div>
       </section>
